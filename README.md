@@ -39,8 +39,50 @@ Tested on:
 # Option 1: Quick one-liner (recommended)
 wget https://raw.githubusercontent.com/yourusername/mate-terminal-toggle-dark/main/mate_terminal_toggle_dark.py -O ~/bin/mate-terminal-dark
 chmod +x ~/bin/mate-terminal-dark
-
+```
+```bash
 # Option 2: Clone the repo
 git clone https://github.com/yourusername/mate-terminal-toggle-dark.git
 cd mate-terminal-toggle-dark
 # Optionally move or symlink the script to ~/bin or /usr/local/bin
+```
+Usage
+Bash# Toggle dark mode on / off (uses default profile)
+python3 mate_terminal_toggle_dark.py
+
+# Or using the short name (if you followed the install step above)
+mate-terminal-dark
+
+# Specify a different profile
+mate-terminal-dark --profile CustomProfile
+mate-terminal-dark --profile=Work
+First run → switches to dark mode and saves your current settings.
+Second run → restores your previous colors.
+Important:
+After running the script, open a new terminal tab or window — existing ones usually don't refresh the palette automatically.
+Example output
+text✔ MATE Terminal profile 'default' switched to dark mode.
+ Open a NEW tab/window to ensure colors refresh.
+or
+text✔ Restored previous settings for profile 'default'.
+ Open a NEW tab/window to ensure colors refresh.
+How it decides direction
+
+If current background is already very dark (heuristic: perceived brightness < ~60), it assumes you're already in dark mode → restores previous
+Otherwise → saves current settings and applies dark mode
+
+Limitations / Notes
+
+Only changes background and foreground colors (not palette / ANSI colors)
+Does not attempt to guess nice 16-color palettes — just forces black + white for maximum readability
+If no backup exists when restoring, it falls back to use-theme-colors=true
+Very conservative color detection — may occasionally misclassify exotic color schemes (rare)
+
+Contributing
+Feel free to open issues or PRs!
+Common improvements people ask for:
+
+Support for palette color changes
+Automatic detection of all available profiles
+Desktop entry / keyboard shortcut integration
+Toggle via argument (--dark / --light)
